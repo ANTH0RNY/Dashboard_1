@@ -2,16 +2,13 @@
     border: 1px solid black;
     display: flex;
     flex-direction: column;
-    // width: 15em;
     align-items: center;
-    //  padding-inline: .5em;
     padding-block: 1em;
     gap: 1rem;
     padding-inline-start: .5em;
-
+    
     // overflow: hidden;
     .profile {
-        // justify-self: flex-end;
         margin-top: auto;
     }
 

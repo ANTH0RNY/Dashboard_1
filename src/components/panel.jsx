@@ -8,6 +8,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 import "../scss/panel.scss"
 import { useState } from 'react';
+import { useResolvedPath } from 'react-router-dom';
 function PanelItem({ children, text, close = false, classes = "" }) {
     return (
         <div className={`panel-item ${classes}`}>
@@ -22,6 +23,8 @@ function PanelItem({ children, text, close = false, classes = "" }) {
 }
 export default function Panel() {
     const [closed, setClosed] = useState(false)
+    const res = useResolvedPath();
+    console.log(res.pathname);
     return (
         <div className="panel">
             <PanelItem close={closed} text={""}>

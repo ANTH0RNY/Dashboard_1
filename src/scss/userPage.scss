@@ -1,0 +1,13 @@
+.user-page {
+        display: flex;
+        // width: 100%;
+        flex-direction: column;
+        overflow-x: hidden;
+        .user-search {
+                display: flex;
+                justify-content: flex-end;
+                padding-block: .5rem;
+                // width: 100%;
+                // float: right;
+        }
+}

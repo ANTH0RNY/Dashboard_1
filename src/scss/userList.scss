@@ -1,0 +1,33 @@
+.user-item {
+    padding-inline: 1em;
+
+    // padding-block: 1em;
+    table {
+        border-collapse: separate;
+        width: 100%;
+        border-spacing: 0 .5em;
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        thead {
+            font-size: 1.2rem;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        .user-item {
+
+            &:hover {
+                cursor: pointer;
+                opacity: .7;
+            }
+        }
+    }
+}

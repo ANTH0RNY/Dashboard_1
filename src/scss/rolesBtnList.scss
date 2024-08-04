@@ -1,0 +1,21 @@
+.roles-btn-list {
+    padding-block: .5em;
+    display: flex;
+    gap: 1rem;
+    padding-left: 1rem;
+
+    .btn {
+        background-color: white;
+        padding: .5em 1em;
+        font-size: 16px;
+        border-radius: .5em;
+        outline: none;
+        border-width: 1px;
+        transition: scale .3s;
+
+        &:hover {
+            cursor: pointer;
+            scale: 1.03;
+        }
+    }
+}
