@@ -27,8 +27,7 @@ export default function UsersPage() {
             <hr />
             <RolesBtnList roles={roles.roles} handler={btnHandler} />
             <hr />
-            <UsersList users={userList} />
-            {/* // todo: userList componet */}
+            <UsersList users={userList} roles={roles.roles}/>
         </div>
     )
 }

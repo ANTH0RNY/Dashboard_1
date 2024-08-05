@@ -3,6 +3,7 @@ import Main from "../components/main";
 import Error from "../Views/errors";
 import App from "../App";
 import UsersPage from "../Views/usersPage";
+import UserDetails from "../Views/userDetails";
 
 const router = createBrowserRouter([
   {
@@ -15,8 +16,12 @@ const router = createBrowserRouter([
         element: <Main />
       },
       {
-        path:"/user",
-        element:<UsersPage/>
+        path: "/user",
+        element: <UsersPage />
+      },
+      {
+        path: "/user/:id",
+        element: <UserDetails />
       }
     ]
   }

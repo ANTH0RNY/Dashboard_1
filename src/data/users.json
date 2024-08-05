@@ -14,7 +14,7 @@
             "userName": "Sylvia Bauch",
             "userEmail": "arvey@example.com",
             "role": {
-                "id": 1,
+                "id": 2,
                 "roleGroup": "Organizer"
             }
         },
