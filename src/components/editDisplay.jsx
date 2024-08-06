@@ -2,6 +2,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import "../scss/edit-display.scss"
 import { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types'; // Import PropTypes
 
 
 export default function EditDisplay({ defaultValue = "", handler = () => { }, discardController = null }) {
@@ -25,7 +26,7 @@ export default function EditDisplay({ defaultValue = "", handler = () => { }, di
         // handleCrossClick()
         setValue(defaultValue)
         // console.log("discard")
-    }, [discardController])
+    }, [defaultValue, discardController])
     return (
         <div className="edit-display">
             {
@@ -35,7 +36,7 @@ export default function EditDisplay({ defaultValue = "", handler = () => { }, di
                             value
                         }
                     </p>
-                    <EditIcon fontSize='small' onClick={(_) => setEditMode(true)} />
+                    <EditIcon sx={{ cursor: 'pointer'}}fontSize='small' onClick={() => setEditMode(true)} />
                 </>) : (<>
                     <input
                         type="text"
@@ -44,13 +45,19 @@ export default function EditDisplay({ defaultValue = "", handler = () => { }, di
                         onChange={(e) => setValue(e.target.value)}
                         ref={input}
                     />
-                    <span className='cross' onClick={(_) => handleCrossClick()}>
+                    <span className='cross' onClick={() => handleCrossClick()}>
                         &#10005;
                     </span>
-                    <SaveIcon fontSize={"small"} className='icon' onClick={(_) => { handleSaveClick() }} />
+                    <SaveIcon fontSize={"small"} className='icon' onClick={() => { handleSaveClick() }} />
                 </>)
             }
 
         </div>
     )
 }
+// Define PropTypes
+EditDisplay.propTypes = {
+    defaultValue: PropTypes.string,
+    handler: PropTypes.func,
+    discardController: PropTypes.any, // You can use PropTypes.any if discardController can be any type
+};
