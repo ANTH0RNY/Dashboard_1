@@ -7,6 +7,7 @@ export default function EventList({ events, types, status }) {
     useEffect(() => {
         setEventList(events)
     }, [events])
+    // console.log(eventList)
     const filterType = (type) => {
         if (type === "All") {
             setEventList(events)
