@@ -1,0 +1,40 @@
+.edit-event-form {
+    $input-width: 15em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    // gap: 1rem;
+    gap: 1.5rem 1rem;
+
+    .input-element {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+
+    input {
+        font-size: 18px;
+        // height: 1.2em;
+        // margin-bottom: .5rem;
+        border-radius: .3rem;
+        border: 1px solid black;
+        outline: none;
+        padding-left: .3em;
+        padding-block: .2em;
+        width: $input-width;
+    }
+
+    textarea {
+        width: calc($input-width * 2);
+        font-size: 18px;
+        aspect-ratio: 1/.5;
+        padding-left: .3em;
+        padding-block: .2em;
+    }
+
+    select {
+        width: $input-width;
+        font-size: 18px;
+        border-radius: .3em;
+        padding-block: .2em;
+    }
+}
