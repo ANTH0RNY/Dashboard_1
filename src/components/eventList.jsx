@@ -1,104 +1,181 @@
-import Search from "./search.jsx"
-import "../scss/eventList.scss"
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
+import Search from "./search.jsx";
+import {
+    Box,
+    Button,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    Typography,
+    Divider,
+    Stack,
+    TablePagination,
+    tableCellClasses,
+} from '@mui/material';
+
+import { styled } from '@mui/system';
+import "../scss/eventList.scss";
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.common.white,
+        fontWeight: 'bold',
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+    },
+    '&:last-child td, &:last-child th': {
+        border: 0,
+    },
+}));
 
 export default function EventList({ events, types, status }) {
     const [eventList, setEventList] = useState(events);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+
     useEffect(() => {
-        setEventList(events)
-    }, [events])
-    // console.log(eventList)
+        setEventList(events);
+    }, [events]);
+
     const filterType = (type) => {
         if (type === "All") {
-            setEventList(events)
-            return
+            setEventList(events);
+            return;
         }
-        const list = events.filter((event) => event.eventType == type)
-        setEventList(list)
-    }
+        const list = events.filter((event) => event.eventType === type);
+        setEventList(list);
+    };
+
     const filterStatus = (status) => {
         if (status === "All") {
-            setEventList(events)
-            return
+            setEventList(events);
+            return;
         }
-        const list = events.filter((event) => event.status === status)
+        const list = events.filter((event) => event.status === status);
         setEventList(list);
-    }
+    };
 
     const handleSearch = (value) => {
         if (value !== null) {
-            const searchString = value.toLowerCase()
-            const searchresult = events
-                .filter((event) => event.eventName
-                    .toLowerCase().includes(searchString))
-            setEventList(searchresult)
-            // console.log(searchresult)
+            const searchString = value.toLowerCase();
+            const searchResult = events
+                .filter((event) => event.eventName.toLowerCase().includes(searchString));
+            setEventList(searchResult);
         }
-    }
+    };
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
 
     return (
-        <div className="event-list">
-            <div className="event-search">
+        <Box className="event-list" sx={{ p: 2 }}>
+            <Box className="event-search" sx={{ mb: 2 }}>
                 <Search handler={handleSearch} />
-            </div>
-            <hr />
-            <div className="select-btns">
-                <div className="types">
-                    <h4>Types</h4>
-                    <div className="btns">
-                        <button className="btn btn-type" onClick={(_) => filterType("All")}>All</button>
+            </Box>
+            <Divider sx={{ mb: 2 }} />
+            <Stack direction="row" spacing={2} className="select-btns" sx={{ mb: 2 }}>
+                <Box className="types">
+                    <Typography variant="h6">Types</Typography>
+                    <Stack direction="row" spacing={1} className="btns">
+                        <Button variant="contained" onClick={() => filterType("All")}>All</Button>
                         {
-                            types.map((type, index) => {
-                                return (<button className="btn btn-type" key={index} onClick={(_) => filterType(type)}>
+                            types.map((type, index) => (
+                                <Button variant="contained" key={index} onClick={() => filterType(type)}>
                                     {type}
-                                </button>)
-                            })
+                                </Button>
+                            ))
                         }
-                    </div>
-                </div>
-                <div className="status">
-                    <h4>Status</h4>
-                    <div className="btns">
-                        <button className="btn btn-status" onClick={(_) => filterStatus("All")}>All</button>
+                    </Stack>
+                </Box>
+                <Box className="status">
+                    <Typography variant="h6">Status</Typography>
+                    <Stack direction="row" spacing={1} className="btns">
+                        <Button variant="contained" onClick={() => filterStatus("All")}>All</Button>
                         {
-                            status.map((statu, index) => {
-                                return (
-                                    <button key={index} className="btn btn-status" onClick={(_) => filterStatus(statu)}>
-                                        {statu}
-                                    </button>
-                                )
-                            })
+                            status.map((statu, index) => (
+                                <Button variant="contained" key={index} onClick={() => filterStatus(statu)}>
+                                    {statu}
+                                </Button>
+                            ))
                         }
-                    </div>
-                </div>
-            </div>
-            <table className="event-table">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Date</th>
-                        <th>Duration</th>
-                        <th>Event Type</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        eventList.map((event) => {
-                            return (<tr key={event.id} className="event-item">
-                                <td>{event.id}</td>
-                                <td>{event.eventName}</td>
-                                <td>{new Date(event.startDateTime).toLocaleDateString() + " " + new Date(event.startDateTime).toLocaleTimeString()}</td>
-                                <td>{event.duration}</td>
-                                <td>{event.eventType}</td>
-                                <td>{event.status}</td>
-                            </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </table>
-        </div>
-    )
+                    </Stack>
+                </Box>
+            </Stack>
+            <TableContainer component={Paper} sx={{ mb: 2 }}>
+                <Table className="event-table">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell>Id</StyledTableCell>
+                            <StyledTableCell>Name</StyledTableCell>
+                            <StyledTableCell>Date</StyledTableCell>
+                            <StyledTableCell>Duration</StyledTableCell>
+                            <StyledTableCell>Event Type</StyledTableCell>
+                            <StyledTableCell>Status</StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {
+                            eventList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((event) => (
+                                <StyledTableRow key={event.id} className="event-item">
+                                    <StyledTableCell>{event.id}</StyledTableCell>
+                                    <StyledTableCell>{event.eventName}</StyledTableCell>
+                                    <StyledTableCell>{new Date(event.startDateTime).toLocaleDateString() + " " + new Date(event.startDateTime).toLocaleTimeString()}</StyledTableCell>
+                                    <StyledTableCell>{event.duration}</StyledTableCell>
+                                    <StyledTableCell>{event.eventType}</StyledTableCell>
+                                    <StyledTableCell>{event.status}</StyledTableCell>
+                                </StyledTableRow>
+                            ))
+                        }
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={eventList.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+        </Box>
+    );
 }
+
+EventList.propTypes = {
+    events: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        eventName: PropTypes.string.isRequired,
+        startDateTime: PropTypes.string.isRequired,
+        duration: PropTypes.string.isRequired,
+        eventType: PropTypes.string.isRequired,
+        status: PropTypes.string.isRequired,
+    })).isRequired,
+    types: PropTypes.arrayOf(PropTypes.string).isRequired,
+    status: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+EventList.defaultProps = {
+    events: [],
+    types: [],
+    status: [],
+};
