@@ -1,3 +1,4 @@
+// src/scss/panel.scss
 .panel {
     border: 1px solid black;
     display: flex;
@@ -6,10 +7,10 @@
     padding-block: 1em;
     gap: 1rem;
     padding-inline-start: .5em;
-    height: 100dvh;
+    height: 100vh;
     position: sticky;
-    
-    // overflow: hidden;
+    background-color: var(--background);
+
     .profile {
         margin-top: auto;
     }
@@ -22,41 +23,33 @@
         cursor: pointer;
         border: 1px solid black;
     }
-    .icon-item:hover{
+
+    .icon-item:hover {
         border: 1px solid black;
         cursor: pointer;
-        // padding: .2em;
     }
+
     .panel-item {
         display: flex;
         align-items: center;
         justify-content: center;
-        // gap: 1em;
         border: 1px solid transparent;
+
         .menu:hover {
-            // align-self: flex-start;
             border: 1px solid black;
             cursor: pointer;
         }
 
         .icon {
-            align-self: flex-start;
-            justify-content: center;
             display: flex;
             justify-content: center;
             align-items: center;
-            // text-align: center;
-            // font-size: 3rem;
-            // padding-inline: .5em;
             width: 2rem;
         }
 
         .text {
-            // display: none;
-            // width: 8rem;
             font-size: 18px;
             overflow: hidden;
-            // padding-left: .5rem;
             box-sizing: border-box;
             transition: width .5s ease-in, padding .5s ease-in;
         }
@@ -70,7 +63,6 @@
         .open {
             width: 8rem;
             padding-left: .5rem;
-
         }
     }
 }

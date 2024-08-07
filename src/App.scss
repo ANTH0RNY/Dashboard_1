@@ -1,53 +1,70 @@
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-} */
- body{
-  font-family: 'Roboto',Arial, Helvetica, sans-serif;
- }
+/* src/global.scss */
+:root {
+  --background-light: #ffffff;
+  --background-dark: #303030;
+  --text-light: #000000;
+  --text-dark: #ffffff;
+  --scrollbar-thumb-light: lightblue;
+  --scrollbar-thumb-dark: #555555;
+  --scrollbar-track: #f0f0f0;
+}
 
-*, :root{
+[data-theme='light'] {
+  --background: var(--background-light);
+  --text-color: var(--text-light);
+  --scrollbar-thumb: var(--scrollbar-thumb-light);
+  --scrollbar-track: var(--scrollbar-track);
+}
+
+[data-theme='dark'] {
+  --background: var(--background-dark);
+  --text-color: var(--text-dark);
+  --scrollbar-thumb: var(--scrollbar-thumb-dark);
+  --scrollbar-track: #303030;
+}
+
+body {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  background-color: var(--background);
+  color: var(--text-color);
+}
+
+*, *::before, *::after {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
-#root{
-  overflow-x: hidden;
-  // overflow-y: scroll;
-}
-.app{
-  display: flex;
+
+#root {
   overflow-x: hidden;
   overflow-y: hidden;
-  width: 99vw;
-  height: 99vh;
-  // &>*{
-  //   border: 1px solid black;
-  // }
-  .panel{
-    // flex: 1;
-    // width: 2rem;
+}
+
+.app {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  
+  .panel {
+    flex-shrink: 0;
   }
-  .main{
-    // flex: 4;
-    // width: 12rem;
-    padding-block: 1em;
+
+  .main {
     flex-grow: 1;
-    overflow-y: scroll;
+    padding-block: 1em;
+    overflow-y: auto;
+
     &::-webkit-scrollbar {
-      width: 6px;               /* width of the entire scrollbar */
+      width: 6px;
     }
     
     &::-webkit-scrollbar-track {
-      background: white;        /* color of the tracking area */
+      background: var(--scrollbar-track);
     }
     
     &::-webkit-scrollbar-thumb {
-      background-color: lightblue;    /* color of the scroll thumb */
-      border-radius: 20px;       /* roundness of the scroll thumb */
-      // border: 3px solid orange;  /* creates padding around scroll thumb */
+      background-color: var(--scrollbar-thumb);
+      border-radius: 20px;
     }
   }
 }

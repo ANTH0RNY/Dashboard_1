@@ -4,6 +4,7 @@ import Error from "../Views/errors";
 import App from "../App";
 import UsersPage from "../Views/usersPage";
 import UserDetails from "../Views/userDetails";
+import ListEvent from "../Views/listEvent";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/user/:id",
         element: <UserDetails />
+      },
+      {
+        path: "/events",
+        element: <ListEvent/>
       }
     ]
   }

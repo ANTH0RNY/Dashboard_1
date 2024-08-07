@@ -86,8 +86,8 @@
             "userName": "Ms. Grace Gutmann",
             "userEmail": "laina@example.com",
             "role": {
-                "id": 1,
-                "roleGroup": "Basic"
+                "id": 2,
+                "roleGroup": "Organizer"
             }
         },
         {
