@@ -1,56 +1,87 @@
+import { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
+import { 
+    IconButton,
+    Select,
+    MenuItem,
+    Typography,
+    Box,
+    //Stack
+} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
+import ClearIcon from '@mui/icons-material/Clear';
+import "../scss/edit-display-role.scss";
 
-import { useEffect, useState } from "react";
-import "../scss/edit-display-role.scss"
+export default function EditDisplayRole({ role, roles, handler, discardController }) {
+    const [editMode, setEditMode] = useState(false);
+    const [value, setValue] = useState(role.id);
 
-export default function EditDisplayRole({ role, roles, handler = () => { }, discardController = null }) {
-    const [editMode, setEditMode] = useState(false)
-    const [value, setValue] = useState(role.id)
-    // console.log(role)
     const handleCrossClick = () => {
-        setValue(role.id)
-        setEditMode(false)
-    }
+        setValue(role.id);
+        setEditMode(false);
+    };
+
     const handleSaveClick = () => {
-        // if (role.id == value) return
-        handler(value)
-        setEditMode(false)
-    }
+        handler(value);
+        setEditMode(false);
+    };
+
     useEffect(() => {
-        setValue(role.id)
-    }, [discardController])
+        setValue(role.id);
+    }, [role.id, discardController]);
 
     return (
-        <div className="edit-display-role">
-            {
-                !editMode
-                    ? (<>
-                        <p className="display">
-                            {
-                                roles.find((r) => r.id == value).roleGroup
-                            }
-                        </p>
-                        <EditIcon fontSize='small' onClick={(_) => { setEditMode(true) }} />
-                    </>)
-
-                    : <>
-                        <select name="role" value={value}
-                            onChange={e => setValue(e.target.value)}
-                        >
-                            {
-                                roles.map((r) =>
-                                    <option value={r.id} key={r.id}>
-                                        {r.roleGroup}
-                                    </option>)
-                            }
-                        </select>
-                        <span className='cross' onClick={(_) => handleCrossClick()}>
-                            &#10005;
-                        </span>
-                        <SaveIcon fontSize={"small"} className='icon' onClick={(_) => { handleSaveClick() }} />
-                    </>
-            }
-        </div>
-    )
+        <Box className="edit-display-role" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            {!editMode ? (
+                <>
+                    <Typography variant="body1" className="display">
+                        {roles.find((r) => r.id === value).roleGroup}
+                    </Typography>
+                    <IconButton size="small" onClick={() => setEditMode(true)}>
+                        <EditIcon fontSize="small" />
+                    </IconButton>
+                </>
+            ) : (
+                <>
+                    <Select
+                        name="role"
+                        value={value}
+                        onChange={e => setValue(e.target.value)}
+                        sx={{ minWidth: 120 }}
+                    >
+                        {roles.map((r) => (
+                            <MenuItem value={r.id} key={r.id}>
+                                {r.roleGroup}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                    <IconButton size="small" onClick={handleCrossClick}>
+                        <ClearIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton size="small" onClick={handleSaveClick}>
+                        <SaveIcon fontSize="small" />
+                    </IconButton>
+                </>
+            )}
+        </Box>
+    );
 }
+
+EditDisplayRole.propTypes = {
+    role: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        roleGroup: PropTypes.string.isRequired
+    }).isRequired,
+    roles: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        roleGroup: PropTypes.string.isRequired
+    })).isRequired,
+    handler: PropTypes.func,
+    discardController: PropTypes.any
+};
+
+EditDisplayRole.defaultProps = {
+    handler: () => {},
+    discardController: null
+};

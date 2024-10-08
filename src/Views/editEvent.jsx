@@ -10,14 +10,14 @@ export default function EditEvent() {
         <div className="edit-event">
             {/* <div className="form"> */}
             <h2>
-                Edit event details
+                Edit Event Details
             </h2>
             <EditEventForm events={events[0]} status={status} types={types} />
-            {/* </div>? */}
+            {/* </div>?
             <div className="btns">
                 <button>Save Changes</button>
                 <button>Discard Changes</button>
-            </div>
+            </div> */}
         </div>
     )
 
